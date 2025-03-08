@@ -261,7 +261,7 @@
 				return;
 			}
 			const repoOwner = "piceayee";
-			const repoName = "edit";
+			const repoName = "0308test";
 			const folderPath = "data"; // GitHub 上的資料夾名稱
 			const branch = "main"; // 或者你的分支名稱
 			// 🚀 1. 使用 GitHub API 取得資料夾內的檔案列表
@@ -278,10 +278,9 @@
 					return;
 				}
 				// 🚀 3. 逐一下載 JSON 檔案並載入標記
-				for (let file of jsonFiles) {
-					let rawUrl = file.download_url; // GitHub 提供的原始下載連結
-					await loadMarkersFromJson(rawUrl);
-				}
+				await Promise.all(jsonFiles.map(file => loadMarkersFromJson(file.download_url)));
+				console.log("✅ 所有 JSON 檔案下載完成！");
+			
 			} catch (error) {
 				console.error("❌ 無法載入 GitHub JSON 資料夾:", error);
 			}
