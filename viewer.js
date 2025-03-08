@@ -278,8 +278,10 @@
 					return;
 				}
 				// 🚀 3. 逐一下載 JSON 檔案並載入標記
-				await Promise.all(jsonFiles.map(file => loadMarkersFromJson(file.download_url)));
-				console.log("✅ 所有 JSON 檔案下載完成！");
+				for (let file of jsonFiles) {
+					let rawUrl = file.download_url; // GitHub 提供的原始下載連結
+					await loadMarkersFromJson(rawUrl);
+				}
 			
 			} catch (error) {
 				console.error("❌ 無法載入 GitHub JSON 資料夾:", error);
