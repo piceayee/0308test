@@ -145,7 +145,6 @@
 			}
 		});
 
-		
 		function compressImage(img, quality = 0.5, maxWidth = 800) { //壓縮
 			return new Promise((resolve, reject) => {
 				let canvas = document.createElement("canvas");
@@ -262,17 +261,24 @@
 				return;
 			}
     // 🔹 這裡手動列出所有 JSON 檔案
-const jsonUrls = [
-    "https://piceayee.github.io/0308test/data/total1.json" // ✅ 改成 GitHub Pages
-];
+    const jsonUrls = [
+        "https://raw.githubusercontent.com/piceayee/0308test/main/data/total1.json",
+        //"https://raw.githubusercontent.com/piceayee/0308test/main/data/total2.json",
+        //"https://raw.githubusercontent.com/piceayee/0308test/main/data/total3.json"
+    ];
 
-async function loadJsonData() {
     try {
         console.log("📥 開始載入 JSON 檔案...");
+        
+        // 🚀 並行載入所有 JSON
+        const fetchPromises = jsonUrls.map(url => fetch(url).then(res => {
+            if (!res.ok) throw new Error(`❌ 無法載入 JSON: ${url}`);
+            return res.json();
+        }));
 
-        const fetchPromises = jsonUrls.map(url => fetch(url).then(res => res.json()));
         const jsonDataArray = await Promise.all(fetchPromises);
 
+        // 🔄 逐一處理所有 JSON
         jsonDataArray.forEach(data => {
             if (Array.isArray(data)) {
                 data.forEach(markerData => addMarkerToMap(markerData));
@@ -282,12 +288,11 @@ async function loadJsonData() {
         });
 
         console.log("✅ 所有 JSON 檔案載入完成！");
+
     } catch (error) {
         console.error("❌ 載入 JSON 失敗", error);
     }
 }
-
-loadJsonData();
 		// 📌 這個函式會讀取特定 JSON 檔案並加入標記
 		async function loadMarkersFromJson(url) {
 			try {
