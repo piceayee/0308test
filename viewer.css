@@ -197,20 +197,7 @@
     text-align: center;
 }
 
-/* 放大圖片的背景區塊 */
-.modal {
-    display: none; /* 預設隱藏 */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* 黑色半透明背景 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 /* 放大的圖片 */
 .modal-content {
@@ -219,16 +206,7 @@
     border-radius: 10px;
 }
 
-/* 右上角的關閉按鈕 */
-.close {
-    position: absolute;
-    top: 20px;
-    right: 35px;
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-}
+
 
 .category-tags {
     margin-top: 5px;
