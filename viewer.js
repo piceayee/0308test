@@ -145,6 +145,7 @@
 			}
 		});
 
+		
 		function compressImage(img, quality = 0.5, maxWidth = 800) { //壓縮
 			return new Promise((resolve, reject) => {
 				let canvas = document.createElement("canvas");
